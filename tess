@@ -1,0 +1,22 @@
+#1 Activates Boto for use and directed it to s3
+import boto3
+s3 = boto3.resource('s3')
+
+#2 Python ask user to create bucketname
+bucket_name = input("Select a bucket name (must be all lowercase).  ")
+
+# Gather bucket names with s3
+bucket = list(s3.buckets.all())
+all_buckets = [bucket.name for bucket in s3.buckets.all()]
+
+
+#4 Checks bucket_name against the s3 bucket names to see if it matches any names
+if bucket_name in s3.buckets.all():
+    print("The name you selected is already taken, please choose a different name")
+    bucket_name = input('Select another bucket name (must be all lowercase).  ')
+else:
+    print('Your new bucket is named',bucket_name,"!")
+    def create_bucket():
+        s3_client = boto3.client('s3')
+        s3_client.create_bucket(Bucket=bucket_name)
+    create_bucket()
